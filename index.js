@@ -25,6 +25,7 @@ app.get('/', async (req, res) => {
   try {
     const resp = await axios.get(endpoint, { headers });
     const data = resp.data.results;
+
     res.render('homepage', { title: 'Homepage | HubSpot APIs', data });
   } catch (error) {
     console.error(error);
@@ -45,10 +46,11 @@ app.post('/update-cobj', async (req, res) => {
       director: req.body.director,
       movie_name: req.body.movie_name,
       main_actor: req.body.main_actor,
+      movie_type: req.body.movie_type,
     },
   };
 
-  const endpoint = 'https://api.hubspot.com/crm/v3/objects/2-115072281';
+  let endpoint = 'https://api.hubspot.com/crm/v3/objects/2-115072281';
 
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
@@ -56,7 +58,14 @@ app.post('/update-cobj', async (req, res) => {
   };
 
   try {
-    await axios.post(endpoint, data, { headers });
+    if (req.body.id) {
+      // Update
+      endpoint += `/${req.body.id}`;
+      await axios.patch(endpoint, data, { headers });
+    } else {
+      // Create
+      await axios.post(endpoint, data, { headers });
+    }
     res.redirect('/');
   } catch (err) {
     console.error(err);
