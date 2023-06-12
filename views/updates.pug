@@ -4,18 +4,14 @@ html
         title= `${title}`
         meta(name="viewport" content="width=device-width, initial-scale=1")
         link(rel="stylesheet", href="/css/style.css")
-    body    
-        a(href="/update-cobj") Add/Update this table
-        h1 Custom Objects
-        table 
-            thead
-                tr
-                    th Director
-                    th Movie Name
-                    th Main Actor
-            tbody
-                each object in data
-                    tr 
-                        td #{object.properties.director}
-                        td #{object.properties.movie_name}
-                        td #{object.properties.main_actor}
+    body
+        a(href="/") Return to the homepage
+        h1 Update Custom Object
+        form(action="/update-cobj" method="post")
+            label(for="director") Director
+            input(type="text" id="director" name="director" required)
+            label(for="movie_name") Movie Name
+            input(type="text" id="movie_name" name="movie_name" required)
+            label(for="main_actor") Main Actor
+            input(type="text" id="main_actor" name="main_actor" required)
+            button(type="submit") Submit
