@@ -25,9 +25,6 @@ app.get('/', async (req, res) => {
   try {
     const resp = await axios.get(endpoint, { headers });
     const data = resp.data.results;
-    for (let i = 0; i < data.length; i++) {
-      console.log(data[i].properties);
-    }
     res.render('homepage', { title: 'Homepage | HubSpot APIs', data });
   } catch (error) {
     console.error(error);
