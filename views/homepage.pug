@@ -1,0 +1,21 @@
+﻿doctype html
+html 
+    head 
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body    
+        a.add-update(href="/update-cobj") Add/Update this table
+        h1.page-title Custom Objects
+        table.data-table 
+            thead
+                tr
+                    th Director
+                    th Movie Name
+                    th Main Actor
+            tbody
+                each object in data
+                    tr 
+                        td #{object.properties.director}
+                        td #{object.properties.movie_name}
+                        td #{object.properties.main_actor}
